@@ -13,14 +13,14 @@
           }
         },
         "projection": {"type": "mercator"},
-        "mark": {"type": "geoshape", "fill": "#e0e0e0", "stroke": "black"}
+        "mark": {"type": "geoshape", "fill": "red", "stroke": "black"}
       },
       {
         "data": {
           "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Map-HW9-Aus/data/Queensland_crashes_fatalities.csv"
         },
         "projection": {"type": "mercator"},
-        "mark": {"type": "circle", "color": "red", "size": 30, "opacity": 0.7},
+        "mark": {"type": "circle", "color": "blue", "size": 15, "opacity": 0.5},
         "encoding": {
           "longitude": {"field": "Crash_Longitude", "type": "quantitative"},
           "latitude": {"field": "Crash_Latitude", "type": "quantitative"},

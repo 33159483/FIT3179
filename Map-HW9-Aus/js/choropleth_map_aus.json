@@ -1,0 +1,40 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Crash Fatalities by State",
+    "width": 800,
+    "height": 600,
+    "projection": {"type": "mercator"},
+    "data": {
+      "url": "https://raw.githubusercontent.com/alwaysblazing/Australia-State-TopoJson-MapChart/master/au-states-topo.json",
+      "format": {"type": "topojson", "feature": "austates"}
+    },
+    "transform": [
+      {
+        "lookup": "properties.STATE_NAME",
+        "from": {
+          "data": {
+            "url": "https://raw.githubusercontent.com/33159483/FIT3179/main/Map-HW9-Aus/data/Australian_crashs_fatalities.csv"
+          },
+          "transform": [
+            {
+              "calculate": "datum.State == 'Qld' ? 'Queensland' : datum.State == 'NSW' ? 'New South Wales' : datum.State == 'WA' ? 'Western Australia' : datum.State == 'SA' ? 'South Australia' : datum.State == 'Tas' ? 'Tasmania' : datum.State == 'NT' ? 'Northern Territory' : datum.State == 'ACT' ? 'Australian Capital Territory' : datum.State == 'Vic' ? 'Victoria' : datum.State",
+              "as": "State_Full"
+            },
+            {"aggregate": [{"op": "count", "as": "Fatalities"}], "groupby": ["State_Full"]}
+          ],
+          "key": "State_Full",
+          "fields": ["Fatalities"]
+        }
+      }
+    ],
+    "mark": {"type": "geoshape"},
+    "encoding": {
+      "color": {"field": "Fatalities", "type": "quantitative", "scale": {"scheme": "reds"}},
+      "tooltip": [
+        {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
+        {"field": "Fatalities", "type": "quantitative"}
+      ]
+    }
+  }
+  
+  
