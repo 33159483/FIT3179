@@ -1,37 +1,34 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 800,
-    "height": 450,
-    "title": "Car Crashes within Queensland from 2001 to 2024",
-    "projection": {"type": "equirectangular"},
+    "title": "Queensland Crash Fatalities",
+    "width": 600,
+    "height": 600,
     "layer": [
       {
         "data": {
-          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/ne_110m_admin_0_countries.topojson",
-          "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+          "url": "https://raw.githubusercontent.com/alwaysblazing/Australia-State-TopoJson-MapChart/refs/heads/master/au-states-topo.json",
+          "format": {
+            "type": "topojson",
+            "feature": "austates"
+          }
         },
-        "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+        "projection": {"type": "mercator"},
+        "mark": {"type": "geoshape", "fill": "#e0e0e0", "stroke": "black"}
       },
       {
         "data": {
-          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/data/earthquake.csv"
+          "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Map-HW9-Aus/data/Queensland_crashes_fatalities.csv"
         },
-        "mark": {"type": "circle", "tooltip": {"content": "data"}},
+        "projection": {"type": "mercator"},
+        "mark": {"type": "circle", "color": "red", "size": 30, "opacity": 0.7},
         "encoding": {
-          "longitude": {"field": "longitude", "type": "quantitative"},
-          "latitude": {"field": "latitude", "type": "quantitative"},
-          "size": {
-            "field": "mag",
-            "type": "quantitative",
-            "title": "Magnitude (Richter scale)",
-            "scale": {"domain": [4, 8]}
-          },
-          "color": {
-            "field": "depth",
-            "type": "quantitative",
-            "title": "Depth in km",
-            "scale": {"scheme": "reds"}
-          }
+          "longitude": {"field": "Crash_Longitude", "type": "quantitative"},
+          "latitude": {"field": "Crash_Latitude", "type": "quantitative"},
+          "tooltip": [
+            {"field": "_id"},
+            {"field": "Crash_Longitude"},
+            {"field": "Crash_Latitude"}
+          ]
         }
       }
     ]
