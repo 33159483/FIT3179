@@ -13,7 +13,7 @@
         }
       },
       "projection": {"type": "mercator"},
-      "mark": {"type": "geoshape", "fill": "white", "stroke": "black"}
+      "mark": {"type": "geoshape", "fill": "white", "stroke": "grey"}
     },
     {
       "data": {
@@ -21,10 +21,16 @@
       },"transform": [
   {
     "filter": "datum.regions !== 'Outside Australia'"
+  },
+  {
+    "filter": "datum.title !== 'Flood - North Queensland Jan 2009'"
+  },
+  {
+    "filter": "!test(/Shipwreck/, datum.title)"
   }
 ],
       "projection": {"type": "mercator"},
-      "mark": {"type": "circle", "color": "blue", "size": 15, "opacity": 0.5},
+      "mark": {"type": "circle", "color": "red", "size": 15, "opacity": 0.5},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
