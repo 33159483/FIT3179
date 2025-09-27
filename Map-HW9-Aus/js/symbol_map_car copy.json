@@ -1,0 +1,35 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Queensland Crash Fatalities",
+    "width": 600,
+    "height": 600,
+    "layer": [
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/alwaysblazing/Australia-State-TopoJson-MapChart/refs/heads/master/au-states-topo.json",
+          "format": {
+            "type": "topojson",
+            "feature": "austates"
+          }
+        },
+        "projection": {"type": "mercator"},
+        "mark": {"type": "geoshape", "fill": "red", "stroke": "black"}
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Data/au-govt-agd-disaster-events-impact-location-na.csv"
+        },
+        "projection": {"type": "mercator"},
+        "mark": {"type": "circle", "color": "blue", "size": 15, "opacity": 0.5},
+        "encoding": {
+          "longitude": {"field": "lon", "type": "quantitative"},
+          "latitude": {"field": "lat", "type": "quantitative"},
+          "tooltip": [
+            {"field": "_id"},
+            {"field": "lon"},
+            {"field": "lat"}
+          ]
+        }
+      }
+    ]
+  }
