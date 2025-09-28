@@ -3,6 +3,19 @@
   "title": "Natural Disasters within Australia",
   "width": 800,
   "height": 500,
+  "params": [
+    {
+      "name": "YearFilter",
+      "value": 1950,
+      "bind": {
+        "input": "range",
+        "min": 1900,
+        "max": 2025,
+        "step": 1,
+        "name": "Disasters through the years: "
+      }
+    }
+  ],
   "layer": [
     {
       "data": {
@@ -19,12 +32,17 @@
       "transform": [
         { "filter": "datum.regions !== 'Outside Australia'" },
         { "filter": "!test(/Shipwreck/, datum.title)" },
-        {"filter": "datum.title !== 'Flood - North Queensland Jan 2009'"},
-        
-
+        { "filter": "datum.title !== 'Flood - North Queensland Jan 2009'" },
         {
           "calculate": "test(/Bushfire/i, datum.title) ? 'Bushfire' : test(/Flood/i, datum.title) ? 'Flood' : test(/Storm/i, datum.title) ? 'Storm' : test(/Cyclone/i, datum.title) ? 'Cyclone' : test(/Epidemic/i, datum.title) ? 'Epidemic' : 'Other'",
           "as": "group_type"
+        },
+        {
+          "calculate": "year(toDate(datum.startdate))",
+          "as": "year"
+        },
+        {
+          "filter": "datum.year <= YearFilter"
         }
       ],
       "projection": { "type": "mercator" },
@@ -40,7 +58,7 @@
             "domain": [1, 100, 500, 1000, 5000, 10000],
             "range": [10, 50, 150, 200, 300, 400, 500]
           },
-          "legend": { "format": ".1s" }
+          "legend": { "format": ".1s", "title": "Deaths Per Disaster" }
         },
         "color": {
           "field": "group_type",
@@ -54,7 +72,8 @@
         "tooltip": [
           { "field": "title", "type": "nominal", "title": "Event" },
           { "field": "group_type", "type": "nominal", "title": "Disaster Type" },
-          { "field": "deaths", "type": "quantitative", "title": "Deaths" }
+          { "field": "deaths", "type": "quantitative", "title": "Deaths" },
+          { "field": "startdate", "type": "temporal", "title": "Date of Disaster" }
         ]
       }
     }
