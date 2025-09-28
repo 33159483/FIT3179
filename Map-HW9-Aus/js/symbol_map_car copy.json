@@ -30,13 +30,19 @@
   }
 ],
       "projection": {"type": "mercator"},
-      "mark": {"type": "circle", "color": "red", "size": 15, "opacity": 0.5},
+      "mark": {"type": "circle", "color": "red", "size": 15, "opacity": 0.4},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
+        "size":{"field": "deaths", "type": "quantitative", "scale": {"type": "threshold", "domain": [1, 100, 500, 1000, 10000], "range": [10, 50, 150, 200, 300, 400]
+,
+"legend": {"format": ".1s"}
+}},
+  
         "tooltip": [
           {"field": "title"},
-          {"field": "regions"}
+          {"field": "regions"},
+          {"field": "deaths"}
         ]
       }
     }
