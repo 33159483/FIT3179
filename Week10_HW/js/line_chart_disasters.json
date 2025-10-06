@@ -28,7 +28,7 @@
       "as": "Year"
     },
     {
-      "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Weather Events' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Technological / Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Other / Human-caused' : 'Other'",
+      "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Extreme Weather' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Technological / Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Other / Human-caused' : 'Other'",
       "as": "DisasterGroup"
     },
     {
