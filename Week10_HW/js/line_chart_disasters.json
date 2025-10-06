@@ -1,91 +1,76 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": {
-      "text": "Temporal Display of Disasters within Australia",
-      "fontSize": 18,
-      "fontWeight": "bold",
-      "anchor": "middle"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Temporal Display of Disasters within Australia",
+    "fontSize": 18,
+    "fontWeight": "bold",
+    "anchor": "middle"
+  },
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv"
+  },
+  "transform": [
+    { "filter": "datum.Category != null && datum.Category != ''" },
+    { "filter": "datum.Zone != 'Offshore'" },
+    {
+      "calculate": "split(datum['Start Date'], '/')",
+      "as": "dateParts"
     },
-    "width": 800,
-    "height": 400,
-    "data": {
-      "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv"
+    {
+      "calculate": "datetime(toNumber(datum.dateParts[2]), toNumber(datum.dateParts[1]) - 1, toNumber(datum.dateParts[0]))",
+      "as": "ParsedDate"
     },
-    "transform": [
-      {
-        "filter": "datum.Category != null && datum.Category != ''"
-      },
-      {
-        "calculate": "split(datum['Start Date'], '/')",
-        "as": "dateParts"
-      },
-      {
-        "calculate": "datetime(toNumber(datum.dateParts[2]), toNumber(datum.dateParts[1]) - 1, toNumber(datum.dateParts[0]))",
-        "as": "ParsedDate"
-      },
-      {
-        "timeUnit": "year",
-        "field": "ParsedDate",
-        "as": "Year"
-      },
-      {
-        "aggregate": [{"op": "count", "as": "DisasterCount"}],
-        "groupby": ["Year", "Category"]
-      },
-      {
-        "filter": "CategoryParam == 'All' || datum.Category == CategoryParam"
-      }
-    ],
-    "params": [
-      {
-        "name": "CategoryParam",
-        "value": "All",
-        "bind": {
-          "input": "select",
-          "options": [
-            "All",
-            "Bushfire",
-            "Flood",
-            "Storm",
-            "Cyclone",
-            "Earthquake",
-            "Landslide",
-            "Tsunami",
-            "Other"
-          ],
-          "name": "Select Disaster Category: "
-        }
-      }
-    ],
-    "mark": {
-      "type": "line",
-      "point": true
+    {
+      "timeUnit": "year",
+      "field": "ParsedDate",
+      "as": "Year"
     },
-    "encoding": {
-      "x": {
-        "field": "Year",
-        "type": "temporal",
-        "title": "Year"
-      },
-      "y": {
-        "field": "DisasterCount",
-        "type": "quantitative",
-        "title": "Number of Disasters"
-      },
-      "color": {
-        "field": "Category",
-        "type": "nominal",
-        "title": "Disaster Category"
-      },
-      "tooltip": [
-        {"field": "Year", "type": "temporal", "title": "Year"},
-        {"field": "Category", "type": "nominal", "title": "Category"},
-        {"field": "DisasterCount", "type": "quantitative", "title": "Number of Disasters"}
-      ]
+    {
+      "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Weather Events' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Technological / Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Other / Human-caused' : 'Other'",
+      "as": "DisasterGroup"
     },
-    "config": {
-      "view": {"stroke": "transparent"}
+    {
+      "aggregate": [{"op": "count", "as": "DisasterCount"}],
+      "groupby": ["Year", "DisasterGroup"]
     }
+  ],
+  "params": [
+    {
+      "name": "GroupSelect",
+      "select": {"type": "point", "fields": ["DisasterGroup"]},
+      "bind": "legend"
+    }
+  ],
+  "mark": {"type": "line", "point": true},
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal",
+      "title": "Year"
+    },
+    "y": {
+      "field": "DisasterCount",
+      "type": "quantitative",
+      "title": "Number of Disasters"
+    },
+    "color": {
+      "field": "DisasterGroup",
+      "type": "nominal",
+      "title": "Disaster Group"
+    },
+    "opacity": {
+      "condition": {"param": "GroupSelect", "value": 1},
+      "value": 0.2
+    },
+    "tooltip": [
+      {"field": "Year", "type": "temporal", "title": "Year"},
+      {"field": "DisasterGroup", "type": "nominal", "title": "Group"},
+      {"field": "DisasterCount", "type": "quantitative", "title": "Number of Disasters"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"}
   }
-  
-
+}
