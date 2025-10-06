@@ -1,0 +1,81 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Disasters within Australia",
+  "width": 800,
+  "height": 500,
+  "params": [
+    {
+      "name": "YearFilter",
+      "value": 1950,
+      "bind": {
+        "input": "range",
+        "min": 1900,
+        "max": 2025,
+        "step": 1,
+        "name": "Disasters through the years: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/alwaysblazing/Australia-State-TopoJson-MapChart/refs/heads/master/au-states-topo.json",
+        "format": { "type": "topojson", "feature": "austates" }
+      },
+      "projection": { "type": "mercator" },
+      "mark": { "type": "geoshape", "fill": "white", "stroke": "grey" }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Data/au-govt-agd-disaster-events-impact-location-na.csv"
+      },
+      "transform": [
+        { "filter": "datum.regions !== 'Outside Australia'" },
+        { "filter": "!test(/Shipwreck/, datum.title)" },
+        { "filter": "datum.title !== 'Flood - North Queensland Jan 2009'" },
+        {
+          "calculate": "test(/Bushfire/i, datum.title) ? 'Bushfire' : test(/Flood/i, datum.title) ? 'Flood' : test(/Storm/i, datum.title) ? 'Storm' : test(/Cyclone/i, datum.title) ? 'Cyclone' : test(/Epidemic/i, datum.title) ? 'Epidemic' : 'Other'",
+          "as": "group_type"
+        },
+        {
+          "calculate": "year(toDate(datum.startdate))",
+          "as": "year"
+        },
+        {
+          "filter": "datum.year <= YearFilter"
+        }
+      ],
+      "projection": { "type": "mercator" },
+      "mark": { "type": "circle", "opacity": 0.5 },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude":  { "field": "lat", "type": "quantitative" },
+        "size": {
+          "field": "deaths",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [1, 100, 500, 1000, 5000, 10000],
+            "range": [10, 50, 150, 200, 300, 400, 500]
+          },
+          "legend": { "format": ".1s", "title": "Deaths Per Disaster" }
+        },
+        "color": {
+          "field": "group_type",
+          "type": "nominal",
+          "legend": { "title": "Disaster Type"},
+          "scale": {
+            "domain": ["Bushfire", "Flood", "Storm", "Cyclone", "Epidemic", "Other"],
+            "range":  ["#e41a1c", "#377eb8", "#ff7f00", "#984ea3", "#4daf4a", "#999999"]
+          }
+        },
+        "tooltip": [
+          { "field": "title", "type": "nominal", "title": "Event" },
+          { "field": "group_type", "type": "nominal", "title": "Disaster Type" },
+          { "field": "deaths", "type": "quantitative", "title": "Deaths" },
+          { "field": "startdate", "type": "temporal", "title": "Date of Disaster" }
+        ]
+      }
+    }
+  ]
+}
