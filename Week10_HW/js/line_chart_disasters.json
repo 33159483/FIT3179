@@ -6,7 +6,7 @@
     "fontWeight": "bold",
     "anchor": "middle"
   },
-  "width": 800,
+  "width": 600,
   "height": 400,
   "data": {
     "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv"
@@ -58,7 +58,17 @@
     "color": {
       "field": "DisasterGroup",
       "type": "nominal",
-      "title": "Disaster Group"
+      "title": "Disaster Group",
+      "legend": {
+        "orient": "none",
+          "legendX": 10,
+          "legendY": 10,
+          "direction": "vertical",
+          "fillColor": "#ffffffcc",
+          "strokeColor": "#cccccc",
+          "cornerRadius": 5,
+          "padding": 5
+        }
     },
     "opacity": {
       "condition": {"param": "GroupSelect", "value": 1},
