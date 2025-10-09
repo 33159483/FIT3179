@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Disasters within Australia",
+  "title": "The progression of Disasters within Australia 1900 - 2025",
   "width": 800,
   "height": 500,
   "params": [
@@ -12,7 +12,7 @@
         "min": 1900,
         "max": 2025,
         "step": 1,
-        "name": "Disasters through the years: "
+        "name": "Progression of disasters: "
       }
     }
   ],
@@ -37,36 +37,21 @@
           "calculate": "test(/Bushfire/i, datum.title) ? 'Bushfire' : test(/Flood/i, datum.title) ? 'Flood' : test(/Storm/i, datum.title) ? 'Storm' : test(/Cyclone/i, datum.title) ? 'Cyclone' : test(/Epidemic/i, datum.title) ? 'Epidemic' : 'Other'",
           "as": "group_type"
         },
-        {
-          "calculate": "year(toDate(datum.startdate))",
-          "as": "year"
-        },
-        {
-          "filter": "datum.year <= YearFilter"
-        }
+        { "calculate": "year(toDate(datum.startdate))", "as": "year" },
+        { "filter": "datum.year <= YearFilter" }
       ],
       "projection": { "type": "mercator" },
-      "mark": { "type": "circle", "opacity": 0.5 },
+      "mark": { "type": "circle", "opacity": 0.5, "size": 60 },
       "encoding": {
         "longitude": { "field": "lon", "type": "quantitative" },
-        "latitude":  { "field": "lat", "type": "quantitative" },
-        "size": {
-          "field": "deaths",
-          "type": "quantitative",
-          "scale": {
-            "type": "threshold",
-            "domain": [1, 100, 500, 1000, 5000, 10000],
-            "range": [10, 50, 150, 200, 300, 400, 500]
-          },
-          "legend": { "format": ".1s", "title": "Deaths Per Disaster" }
-        },
+        "latitude": { "field": "lat", "type": "quantitative" },
         "color": {
           "field": "group_type",
           "type": "nominal",
-          "legend": { "title": "Disaster Type"},
+          "legend": { "title": "Disaster Type" },
           "scale": {
             "domain": ["Bushfire", "Flood", "Storm", "Cyclone", "Epidemic", "Other"],
-            "range":  ["#e41a1c", "#377eb8", "#ff7f00", "#984ea3", "#4daf4a", "#999999"]
+            "range": ["#e41a1c", "#377eb8", "#ff7f00", "#984ea3", "#4daf4a", "#999999"]
           }
         },
         "tooltip": [
@@ -75,6 +60,42 @@
           { "field": "deaths", "type": "quantitative", "title": "Deaths" },
           { "field": "startdate", "type": "temporal", "title": "Date of Disaster" }
         ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Data/au-govt-agd-disaster-events-impact-location-na.csv"
+      },
+      "transform": [
+        { "filter": "datum.regions !== 'Outside Australia'" },
+        { "filter": "!test(/Shipwreck/, datum.title)" },
+        { "filter": "datum.title !== 'Flood - North Queensland Jan 2009'" },
+        { "calculate": "year(toDate(datum.startdate))", "as": "year" },
+        { "filter": "datum.year <= YearFilter" },
+        {
+          "window": [
+            { "op": "rank", "field": "deaths", "as": "death_rank" }
+          ],
+          "sort": [{ "field": "deaths", "order": "descending" }]
+        },
+        { "filter": "datum.death_rank == 1" },
+        {
+          "calculate": "'Highest deaths as of ' + YearFilter + ':\\n' + datum.title + '\\n' + datum.group_type + ' (' + datum.deaths + ' deaths, ' + datum.year + ')' ",
+          "as": "annotation_text"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "x": 900,
+        "y": 510,
+        "fontStyle": "italic",
+        "fontSize": 13,
+        "color": "black",
+        "background": "white"
+      },
+      "encoding": {
+        "text": { "field": "annotation_text" }
       }
     }
   ]
