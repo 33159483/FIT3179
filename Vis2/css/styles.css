@@ -1,4 +1,4 @@
-body *{
+body * {
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -40,17 +40,28 @@ h1 {
 }
 
 .small-font {
-    font-size: 14px;
+    font-size: 10px;
 }
 
 .center-row {
     display: flex;
     justify-content: center;
-  }
+}
 
 .center-row .vis-container {
-  /* shrink-wrap to the chart’s intrinsic width; stays responsive */
-  width: fit-content;
-  max-width: 100%;
-  margin: 2rem 0;   /* nice spacing above/below */
+    /* shrink-wrap to the chart’s intrinsic width; stays responsive */
+    width: fit-content;
+    max-width: 100%;
+    margin: 2rem 0;
+    /* nice spacing above/below */
+}
+
+.site-footer {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.site-footer p {
+    margin: 0 auto;
+    max-width: 70ch;
 }
