@@ -18,7 +18,7 @@
     <!-- CSS file -->
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
 
-    <title>Multiple Visualisations Week 10</title>
+    <title>Disasters Within Australia</title>
   </head>
 
   <body>
@@ -26,8 +26,8 @@
       <!-- Header -->
       <div class="pure-g">
         <div class="pure-u-1-1">
-          <h1>Multiple Visualisations Week 10</h1>
-          <p>This page is home to two visualisations for the week 10 Homework task. First there is a symbol map chart from the week 9 homework. Then there is a line chart below.</p>
+          <h1>Disasters Within Australia</h1>
+          <p>The following visualisation depicts disasters which have occured within Australia from 1900 to 2025. </p>
         </div>
       </div>
 
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-
+      <div id="vis3" class="vis-container"></div>
 
       <!-- Combined Columns -->
       <div class="pure-g">
@@ -56,6 +56,7 @@
         </div>
       </div>
 
+
       <!-- Footer -->
       <div class="pure-g">
         <div class="pure-u-1-1 small-font">
@@ -69,7 +70,8 @@
     <!-- Vega Embeds -->
     <script type="text/javascript">
       var specVis1 = "./js/symbol_map_disaster.json";
-      var specVis2 = "./js/line_chart_disasters.json";
+      var specVis2 = "./js/stacked_bar_disasters.json";
+      var specVis3 = "./js/heat_map_disasters.json";
 
       vegaEmbed("#vis1", specVis1, { actions: false })
         .then(function (result) {
@@ -78,6 +80,12 @@
         .catch(console.error);
 
       vegaEmbed("#vis2", specVis2, { actions: false })
+        .then(function (result) {
+          // result.view can be accessed here
+        })
+        .catch(console.error);
+      
+        vegaEmbed("#vis3", specVis3, { actions: false })
         .then(function (result) {
           // result.view can be accessed here
         })
