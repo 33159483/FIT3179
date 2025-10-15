@@ -1,0 +1,56 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+      "text": "Overall Distribution of Disaster Types in Australia",
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "anchor": "middle"
+    },
+    "width": 700,
+    "height": 400,
+    "data": {
+      "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv"
+    },
+    "transform": [
+      { "filter": "datum.Category != null && datum.Category != ''" },
+      { "filter": "datum.Zone != 'Offshore'" },
+      {
+        "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Extreme Weather' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Technological / Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Man-Made' : 'Other'",
+        "as": "DisasterGroup"
+      },
+      {
+        "aggregate": [{"op": "count", "as": "TotalDisasters"}],
+        "groupby": ["DisasterGroup"]
+      }
+    ],
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "DisasterGroup",
+        "type": "nominal",
+        "title": "Disaster Group",
+        "sort": "-y",
+        "axis": {"labelAngle": 6, "labelAlign":"center"}
+      },
+      "y": {
+        "field": "TotalDisasters",
+        "type": "quantitative",
+        "title": "Number of Disasters"
+      },
+      "color": {
+        "field": "DisasterGroup",
+        "type": "nominal",
+        "title": "Disaster Group",
+        "legend": null
+      },
+      "tooltip": [
+        {"field": "DisasterGroup", "type": "nominal", "title": "Group"},
+        {"field": "TotalDisasters", "type": "quantitative", "title": "Number of Disasters"}
+      ]
+    },
+    "config": {
+      "view": {"stroke": "transparent"},
+      "axis": {"labelFontSize": 11, "titleFontSize": 13}
+    }
+  }
+  

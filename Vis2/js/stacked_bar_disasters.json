@@ -1,0 +1,71 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Distribution of Disasters across Time in Australia",
+    "fontSize": 18,
+    "fontWeight": "bold",
+    "anchor": "middle"
+  },
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv"
+  },
+  "transform": [
+    {"filter": "datum.Category != null && datum.Category != ''"},
+    {"filter": "datum.Zone != 'Offshore'"},
+    {"calculate": "split(datum['Start Date'], '/')", "as": "dateParts"},
+    {
+      "calculate": "datetime(toNumber(datum.dateParts[2]), toNumber(datum.dateParts[1]) - 1, toNumber(datum.dateParts[0]))",
+      "as": "ParsedDate"
+    },
+    {"timeUnit": "year", "field": "ParsedDate", "as": "Year"},
+    {
+      "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Extreme Weather' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Technological / Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Other / Human-caused' : 'Other'",
+      "as": "DisasterGroup"
+    },
+    {
+      "aggregate": [{"op": "count", "as": "DisasterCount"}],
+      "groupby": ["Year", "DisasterGroup"]
+    }
+  ],
+  "mark": {"type": "bar"},
+  "encoding": {
+    "x": {"field": "Year", "type": "temporal", "title": "Year"},
+    "y": {
+      "aggregate": "sum",
+      "field": "DisasterCount",
+      "type": "quantitative",
+      "title": "Number of Disasters"
+    },
+    "color": {
+      "field": "DisasterGroup",
+      "type": "nominal",
+      "title": "Disaster Group",
+      "legend": {
+        "orient": "none",
+          "legendX": 10,
+          "legendY": 10,
+          "direction": "vertical",
+          "fillColor": "#ffffffcc",
+          "strokeColor": "#cccccc",
+          "cornerRadius": 5,
+          "padding": 5
+        }
+      
+    },
+    "tooltip": [
+      {"field": "Year", "type": "temporal", "title": "Year"},
+      {"field": "DisasterGroup", "type": "nominal", "title": "Group"},
+      {
+        "field": "DisasterCount",
+        "type": "quantitative",
+        "title": "Number of Disasters"
+      }
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"labelFontSize": 11, "titleFontSize": 13}
+  }
+}

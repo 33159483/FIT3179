@@ -1,0 +1,66 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+      "text": "Seasonal Pattern of Disasters in Australia",
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "anchor": "middle"
+    },
+    "data": {
+      "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv"
+    },
+    "transform": [
+      {
+        "filter": "datum['Start Date'] != null && datum['Start Date'] != ''"
+      },
+      {
+        "calculate": "split(datum['Start Date'], '/')",
+        "as": "dateParts"
+      },
+      {
+        "calculate": "datetime(toNumber(datum.dateParts[2]), toNumber(datum.dateParts[1]) - 1, toNumber(datum.dateParts[0]))",
+        "as": "ParsedDate"
+      },
+      {
+        "calculate": "month(datum.ParsedDate)",
+        "as": "MonthNumber"
+      },
+      {
+        "aggregate": [{"op": "count", "as": "Number_of_Disasters"}],
+        "groupby": ["MonthNumber"]
+      },
+      {
+        "calculate": "timeFormat(datetime(2000, datum.MonthNumber, 1), '%B')",
+        "as": "Month"
+      }
+    ],
+    "mark": {
+      "type": "rect",
+      "stroke": "white",
+      "strokeWidth": 1
+    },
+    "encoding": {
+      "x": {
+        "field": "Month",
+        "type": "ordinal",
+        "sort": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        "axis": {"title": "Month"}
+      },
+      "color": {
+        "field": "Number_of_Disasters",
+        "type": "quantitative",
+        "title": "Number of Disasters",
+        "scale": {"scheme": "reds"}
+      },
+      "tooltip": [
+        {"field": "Month", "type": "nominal", "title": "Month"},
+        {"field": "Number_of_Disasters", "type": "quantitative", "title": "Number of Disasters"}
+      ]
+    },
+    "width": 600,
+    "height": 100,
+    "config": {
+      "view": {"stroke": "transparent"}
+    }
+  }
+  
