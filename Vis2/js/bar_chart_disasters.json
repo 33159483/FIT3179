@@ -37,7 +37,7 @@
       "field": "DisasterGroup",
       "type": "nominal",
       "title": "Disaster Group",
-      "sort": {"field": "centerPos", "order": "ascending"},
+      "sort": "-y",
       "axis": {"labelAngle": 6, "labelAlign": "center"}
     },
     "y": {
