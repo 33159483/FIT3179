@@ -1,0 +1,102 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Top 10 events by fatalities (excluding Offshore) as a compact table.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv",
+      "format": {"type": "csv"}
+    },
+  
+    "transform": [
+      {"filter": "!(datum.Zone && test(datum.Zone, /Offshore/))"},
+  
+      {"calculate": "toNumber(replace(datum.Fatalities || '', /[^0-9.-]/g, ''))", "as": "FatalitiesNum"},
+      {"filter": "isNumber(datum.FatalitiesNum) && isFinite(datum.FatalitiesNum)"},
+      {"filter": "datum.FatalitiesNum > 0"},
+  
+      {"calculate": "datum['Event '] ? datum['Event '] : datum.Event", "as": "EventName"},
+  
+      {
+        "window": [{"op": "dense_rank", "as": "Rank"}],
+        "sort": [
+          {"field": "FatalitiesNum", "order": "descending"},
+          {"field": "EventName", "order": "ascending"}
+        ]
+      },
+      {"filter": "datum.Rank <= 10"},
+  
+      {"calculate": "format(datum.FatalitiesNum, ',')", "as": "FatalitiesDisp"}
+    ],
+  
+    "hconcat": [
+      {
+        "title": "Rank",
+        "mark": {"type": "text", "align": "right"},
+        "encoding": {
+          "y": {
+            "field": "Rank",
+            "type": "ordinal",
+            "sort": "ascending",
+            "axis": null
+          },
+          "x": {"value": 40},
+          "text": {"field": "Rank"},
+          "tooltip": [
+            {"field": "EventName", "title": "Event"},
+            {"field": "FatalitiesNum", "type": "quantitative", "title": "Fatalities", "format": ","}
+          ]
+        },
+        "width": 60,
+        "height": 220
+      },
+      {
+        "title": "Event",
+        "mark": {"type": "text", "align": "left"},
+        "encoding": {
+          "y": {
+            "field": "Rank",
+            "type": "ordinal",
+            "sort": "ascending",
+            "axis": null
+          },
+          "x": {"value": 0},
+          "text": {"field": "EventName"},
+          "tooltip": [
+            {"field": "EventName", "title": "Event"},
+            {"field": "FatalitiesNum", "type": "quantitative", "title": "Fatalities", "format": ","}
+          ]
+        },
+        "width": 52,
+        "height": 220
+      },
+      {
+        "title": "Fatalities",
+        "mark": {"type": "text", "align": "right"},
+        "encoding": {
+          "y": {
+            "field": "Rank",
+            "type": "ordinal",
+            "sort": "ascending",
+            "axis": null
+          },
+          "x": {"value": 70},
+          "text": {"field": "FatalitiesDisp"},
+          "tooltip": [
+            {"field": "EventName", "title": "Event"},
+            {"field": "FatalitiesNum", "type": "quantitative", "title": "Fatalities", "format": ","}
+          ]
+        },
+        "width": 100,
+        "height": 220
+      }
+    ],
+  
+    "resolve": {"scale": {"y": "shared"}},
+  
+    "config": {
+      "view": {"stroke": null},
+      "axis": {"grid": false, "ticks": false, "labels": false},
+      "title": {"fontSize": 18, "fontWeight": "bold", "anchor": "start"},
+      "concat": {"spacing": 10}
+    }
+  }
+  

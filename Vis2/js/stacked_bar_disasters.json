@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Distribution of Disasters across Time in Australia",
+    "text": "Distribution of Disasters 1900 - 2025 in Australia",
     "fontSize": 18,
     "fontWeight": "bold",
     "anchor": "middle"
@@ -11,8 +11,21 @@
   "data": {
     "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv"
   },
+  "params": [
+    {
+      "name": "zoneFilter",
+      "value": null,
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": [null, "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia", "Offshore"],
+        "labels": ["All", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia", "Offshore"]
+      }
+    }
+  ],
   "transform": [
     {"filter": "datum.Category != null && datum.Category != ''"},
+    { "filter": "zoneFilter == null || datum.Zone == zoneFilter" },
     {"filter": "datum.Zone != 'Offshore'"},
     {"filter": "year(datum['Start Date']) >= 1900"},
     {"calculate": "split(datum['Start Date'], '/')", "as": "dateParts"},

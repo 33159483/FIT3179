@@ -11,8 +11,21 @@
   "data": {
     "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv"
   },
+  "params": [
+    {
+      "name": "zoneFilter",
+      "value": null,
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": [null, "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia", "Offshore"],
+        "labels": ["All", "Australian Capital Territory", "New South Wales", "Northern Territory", "Queensland", "South Australia", "Tasmania", "Victoria", "Western Australia", "Offshore"]
+      }
+    }
+  ],
   "transform": [
     { "filter": "datum.Category != null && datum.Category != ''" },
+    { "filter": "zoneFilter == null || datum.Zone == zoneFilter" },
     { "filter": "datum.Zone != 'Offshore'" },
     {
       "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Extreme Weather' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Man-Made' : 'Other'",
