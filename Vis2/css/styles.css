@@ -1,38 +1,97 @@
 /* Base */
-body * { font-family: 'Open Sans', sans-serif; }
-h1 { font-weight: 900; }
-body { background-color: rgba(0, 0, 0, 0.229); }
+body * {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    font-weight: 900;
+}
+
+body {
+    background-color: rgba(0, 0, 0, 0.229);
+}
 
 .page {
-  max-width: 1100px;
-  width: 95%;
-  background: #fff;
-  margin: 2rem auto;
-  padding: 36px 32px;
-  border-radius: 12px;
-  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+    max-width: 1100px;
+    width: 95%;
+    background: white;
+    margin: 2rem auto;
+    padding: 36px 32px;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .06);
 }
 
 /* Charts & layout helpers */
-.vis-container { width: 100%; }
-.pure-g { margin-bottom: 24px; }
+.vis-container {
+    width: 100%;
+}
+
+.pure-g {
+    margin-bottom: 24px;
+}
+
 /* Gutters that won't break Pure fractions */
-.pure-g > [class*="pure-u"] { box-sizing: border-box; padding: 8px 12px; }
+.pure-g>[class*="pure-u"] {
+    box-sizing: border-box;
+    padding: 8px 12px;
+}
 
 /* Text blocks */
-.description-right { padding-left: 6px; }
-.description-left  { padding-right: 6px; }
+.description-right {
+    padding-left: 6px;
+}
+
+.description-left {
+    padding-right: 6px;
+}
+
 /* Fix earlier selector bug so only headings inside .description are affected */
-.description h2, .description h1 { margin-top: 0; }
+.description h2,
+.description h1 {
+    margin-top: 0;
+}
 
 /* Centered single-row chart wrapper (don't use on multi-column rows) */
-.center-row { display: flex; justify-content: center; }
-.center-row .vis-container { width: fit-content; max-width: 100%; margin: 1.25rem 0; }
+.center-row {
+    display: flex;
+    justify-content: center;
+}
+
+.center-row .vis-container {
+    width: fit-content;
+    max-width: 100%;
+    margin: 1.25rem 0;
+}
 
 /* Titles centered */
 .head-summary h1,
-.section-title { text-align: center; }
+.section-title {
+    position: relative;
+    background-image: url(https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Vis2/data/bushfire-85a647.avif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 80px 20px;  /* add space for the header */
+    color: white;
+    text-align: center;
+}
 
 /* Footer smaller font */
-.site-footer { text-align: center; padding: 1rem 0; font-size: 12px; line-height: 1.45; }
-.site-footer p { margin: 0 auto; max-width: 70ch; }
+.site-footer {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.site-footer p {
+    margin: 0 auto;
+    max-width: 70ch;
+}
+
+p {
+    line-height: 1.15;         /* spacing between lines */
+    font-family: 'Roboto', sans-serif; /* more readable font */
+    font-size: 0.9rem;           /* optional: slightly larger for readability */
+    color: #333;               /* optional: softer than pure black */
+}
