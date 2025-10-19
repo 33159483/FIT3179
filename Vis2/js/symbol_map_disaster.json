@@ -66,7 +66,7 @@
           "legend": { "title": "Disaster Type"},
           "scale": {
             "domain": ["Bushfire", "Flood", "Storm", "Cyclone", "Epidemic", "Other"],
-            "range":  ["#e41a1c", "#377eb8", "#ff7f00", "#984ea3", "#4daf4a", "#999999"]
+            "range":  ["#e41a1c", "#87CEFA", "#FFC0CB", "#800080", "#000000", "#808080"]
           }
         },
         "tooltip": [

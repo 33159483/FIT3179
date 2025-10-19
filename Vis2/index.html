@@ -27,10 +27,9 @@
       <div class="pure-g head-summary">
         <div class="pure-u-1-1">
           <h1>Disasters Within Australia</h1>
-          <p>
-            The following visualisation depicts disasters which have occurred within Australia from 1900 to 2025.
-            The visualisation demonstrates a clear most frequent event with Extreme Weather events within Australia.
-            These events notably include Cyclone Tracy & the Black Friday Bushfires, which are entrenched within the history of Australia.
+          <p style="text-align: center;" > 
+            The following visualisation provides a detailed depiction of natural disasters that have occurred across Australia between the years 1900 and 2025. It highlights the frequency, distribution, and scale of these catastrophic events over time, offering valuable insights into how different types of disasters have shaped the nation’s history. From the early twentieth century to the present day, the data reveals a consistent pattern of severe occurrences that have impacted communities, infrastructure, and the natural environment across the country. <br>
+            <br>These events encompass a wide range of destructive phenomena, including intense storms, floods, cyclones, and prolonged heatwaves. Among the most notable examples are Cyclone Tracy of 1974 and the Black Friday Bushfires of 1939, both of which left a lasting mark on the collective memory of the Australian public. These disasters not only caused widespread devastation but also influenced major policy changes, emergency response strategies, and urban planning practices.
           </p>
         </div>
       </div>
@@ -42,10 +41,9 @@
         </div>
         <div class="pure-u-1-2">
           <div class="description description-left">
-            <h2>Summary</h2>
-            <p>
-              This section provides a compact summary of recorded disaster events. Use the table to scan key
-              attributes quickly (year, state/territory, type, and impacts).
+            <h2 style="text-align: center;" >Summary</h2>
+            <p style="text-align: center;">
+              The data reveals that health-related crises have caused the greatest loss of life, with the Spanish Flu leading at 10,000 deaths, followed by the Bubonic Plague in Sydney. Recurrent heatwaves also appear frequently, reflecting Australia’s vulnerability to extreme weather. Other major tragedies include the Cataraqui shipwreck, Cyclone Mahina, and the sinking of the AHS Centaur. Together, these events illustrate the diverse and devastating nature of disasters that have shaped Australia’s history and its approach to emergency resilience.
             </p>
           </div>
         </div>
@@ -81,12 +79,9 @@
         </div>
         <div class="pure-u-1-3">
           <div class="description description-right">
-            <h2>Temporal Display of Disasters</h2>
-            <p>
-              The temporal display demonstrates that disaster occurrences have increased over time with a peak which
-              occurred within 1998 and 2007 (8 disasters). We can also see that most occurrences of disasters occur
-              in January, followed by February and December which also align with Australia’s summer. Therefore, it
-              may indicate seasonal correlations within Australia's seasons.
+            <h2 style="text-align: center;">Temporal Display of Disasters</h2>
+            <p style="text-align: center;">
+              The temporal display shows a clear rise in disaster occurrences across Australia, with a notable peak between 1998 and 2007 when eight major events were recorded. This increase may reflect both growing climatic extremes and improved reporting. A strong seasonal trend is also evident, with most disasters occurring in January, followed by February and December which align with Australia’s summer months. This pattern suggests a clear link between seasonal weather conditions and disaster frequency, particularly as extreme heat, bushfires, and cyclones are more common during this period, highlighting the need for heightened preparedness in the warmer months.
             </p>
           </div>
         </div>
@@ -97,15 +92,14 @@
         <div class="pure-u-1-1">
           <h2 class="section-title">What Disasters Are Happening?</h2>
         </div>
-        <div class="pure-u-3-4">
+        <div class="pure-u-2-3">
           <div id="vis4" class="vis-container"></div>
         </div>
-        <div class="pure-u-1-4">
+        <div class="pure-u-1-3">
           <div class="description description-right">
-            <h2>Interactivity within the line chart</h2>
-            <p>
-              The most frequent disaster which occurs within Australia falls under Extreme Weather events. These
-              events range from a few disaster types which include Flood, Storm, Cyclone, Maritime/Coastal, and Tornado.
+            <h2 style="text-align: center;">Interactivity within the line chart</h2>
+            <p style="text-align: center;">
+              The most common disasters in Australia are classified as Extreme Weather events, encompassing floods, storms, cyclones, maritime or coastal incidents, and tornadoes. Floods regularly affect inland and coastal regions, causing widespread damage and displacement. Cyclones and severe storms frequently impact northern and eastern Australia, bringing destructive winds, heavy rain, and storm surges. Maritime and coastal disasters, including shipwrecks and erosion, have also left a lasting mark on Australia’s history. Although less frequent, tornadoes occasionally occur in parts of Queensland and New South Wales. Overall, these events highlight Australia’s exposure to diverse and often severe weather conditions.
             </p>
           </div>
         </div>
@@ -115,11 +109,12 @@
       <div class="pure-g site-footer">
         <div class="pure-u-1-1">
           <p>
-            This visualisation is made by Daniel Antonio Chimirri 33159483 & completed on the 17/10/2025. The data sources can be accessed through
+            Author: Daniel Antonio Chimirri 33159483 Date: 19/10/2025. <br>
+            Data Sources: 
             <a href="https://data.aurin.org.au/dataset/au-govt-agd-disaster-events-impact-location-na">AURIN</a>
             & the
             <a href="https://knowledge.aidr.org.au/collections/australian-disasters/">Australian Institute for Disaster Resilience</a>.
-            Generative AI was utilised to assist with interactivity.
+            <br>Generative AI was utilised to assist with interactivity and formatting
           </p>
         </div>
       </div>
@@ -128,11 +123,11 @@
     <!-- Embeds -->
     <script type="text/javascript">
       const specs = [
-        { id: "#vis1", file: "./js/symbol_map_disaster.json" },   // where
-        { id: "#vis2", file: "./js/stacked_bar_disasters.json" },  // when (bars)
-        { id: "#vis3", file: "./js/heat_map_disasters.json" },     // when (heat)
-        { id: "#vis4", file: "./js/bar_chart_disasters.json" },    // what
-        { id: "#vis5", file: "./js/table.json" }                   // summary
+        { id: "#vis1", file: "./js/symbol_map_disaster.json" },   
+        { id: "#vis2", file: "./js/stacked_bar_disasters.json" },  
+        { id: "#vis3", file: "./js/heat_map_disasters.json" },    
+        { id: "#vis4", file: "./js/bar_chart_disasters.json" },  
+        { id: "#vis5", file: "./js/table.json" }                  
       ];
 
       const charts = [];
