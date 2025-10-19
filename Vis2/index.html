@@ -27,9 +27,12 @@
       <div class="pure-g site-footer">
         <div class="pure-u-1-1">
           <h1>Disasters Within Australia</h1>
-          <p>The following visualisation depicts disasters which have occured within Australia from 1900 to 2025 through a symbol map. The visualisation then moves in displaying various aspects of disasters through Australia from 1620 - 2022. </p>
+          <p>
+            The following visualisation depicts disasters which have occured within Australia from 1900 to 2025. The visualisation demonstrates a clear most frequent event with Extreme Weather events within Australia. These events notably include Cyclone Tracey & the Black Friday Bushfires, which are disasters entrechned within the history of Australia.
+          </p>
         </div>
       </div>
+
 
       <!-- Symbol Map -->
       <div class="pure-g">
@@ -43,7 +46,7 @@
       </div>
 
       <!-- stacked bar -->
-      <div class="pure-g" >
+      <div class="pure-g">
         <div class="pure-u-2-3">
           <div id="vis2" class="vis-container" style="width: 50%;"></div>
         </div>
@@ -52,7 +55,7 @@
           <div class="description description-right">
             <h2>Temporal Display of Disasters</h2>
             <p>
-              The temporal display demonstrates that disaster occurences have increased over time with a peak which occured within 1998. We can also see that most occurences of disasters occur in January, followed by February and December which also align with Australia Summer. Therefore, it may indicate seasonal correlations within Australia's seasons.
+              The temporal display demonstrates that disaster occurences have increased over time with a peak which occured within 1998 and 2007 (8 disasters). We can also see that most occurences of disasters occur in January, followed by February and December which also align with Australia Summer. Therefore, it may indicate seasonal correlations within Australia's seasons.
             </p>
           </div>
         </div>
@@ -73,47 +76,45 @@
         </div>
       </div>
 
-
       <!-- Footer -->
       <div class="pure-g site-footer">
         <div class="pure-u-1-1 small-font">
           <p>
-            This visualisation is made by Daniel Antonio Chimirri 33159483 & completed on the 17/10/2025. The datasources can be accessed through <a href="https://data.aurin.org.au/dataset/au-govt-agd-disaster-events-impact-location-na">Aurin</a> & the <a href="https://knowledge.aidr.org.au/collections/australian-disasters/">  Australian Institude for Disaster Resilience</a>. Generative AI was utilised to assit with interactivitity.
+            This visualisation is made by Daniel Antonio Chimirri 33159483 & completed on the 17/10/2025. The datasources can be accessed through
+            <a href="https://data.aurin.org.au/dataset/au-govt-agd-disaster-events-impact-location-na">Aurin</a>
+            & the
+            <a href="https://knowledge.aidr.org.au/collections/australian-disasters/">Australian Institude for Disaster Resilience</a>.
+            Generative AI was utilised to assit with interactivitity.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Vega Embeds -->
+    <!-- 🔹 Updated Vega Embeds script -->
     <script type="text/javascript">
-      var specVis1 = "./js/symbol_map_disaster.json";
-      var specVis2 = "./js/stacked_bar_disasters.json";
-      var specVis3 = "./js/heat_map_disasters.json";
-      var specVis4 = "./js/bar_chart_disasters.json";
+      const specs = [
+        { id: "#vis1", file: "./js/symbol_map_disaster.json" },
+        { id: "#vis2", file: "./js/stacked_bar_disasters.json" },
+        { id: "#vis3", file: "./js/heat_map_disasters.json" },
+        { id: "#vis4", file: "./js/bar_chart_disasters.json" }
+      ];
 
-      vegaEmbed("#vis1", specVis1, { actions: false })
-        .then(function (result) {
-          // result.view can be accessed here
-        })
-        .catch(console.error);
+      const charts = [];
 
-      vegaEmbed("#vis2", specVis2, { actions: false })
-        .then(function (result) {
-          // result.view can be accessed here
-        })
-        .catch(console.error);
-      
-        vegaEmbed("#vis3", specVis3, { actions: false })
-        .then(function (result) {
-          // result.view can be accessed here
-        })
-        .catch(console.error);
-        
-        vegaEmbed("#vis4", specVis4, { actions: false })
-        .then(function (result) {
-          // result.view can be accessed here
-        })
-        .catch(console.error);
+      // Embed all visualisations
+      Promise.all(
+        specs.map(spec =>
+          vegaEmbed(spec.id, spec.file, { actions: false }).then(res => res.view)
+        )
+      ).then(views => {
+        views.forEach(v => charts.push(v));
+
+        // Dropdown listener to update all charts
+        document.getElementById("zoneSelect").addEventListener("change", e => {
+          const selectedZone = e.target.value;
+          charts.forEach(v => v.signal("zone_select", selectedZone).run());
+        });
+      });
     </script>
   </body>
 </html>

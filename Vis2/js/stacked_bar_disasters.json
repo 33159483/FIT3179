@@ -14,6 +14,7 @@
   "transform": [
     {"filter": "datum.Category != null && datum.Category != ''"},
     {"filter": "datum.Zone != 'Offshore'"},
+    {"filter": "year(datum['Start Date']) >= 1900"},
     {"calculate": "split(datum['Start Date'], '/')", "as": "dateParts"},
     {
       "calculate": "datetime(toNumber(datum.dateParts[2]), toNumber(datum.dateParts[1]) - 1, toNumber(datum.dateParts[0]))",
@@ -21,7 +22,7 @@
     },
     {"timeUnit": "year", "field": "ParsedDate", "as": "Year"},
     {
-      "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Extreme Weather' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Technological / Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Man-Made' : 'Other'",
+      "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Extreme Weather' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Man-Made' : 'Other'",
       "as": "DisasterGroup"
     },
     {

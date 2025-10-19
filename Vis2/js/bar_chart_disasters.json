@@ -15,7 +15,7 @@
     { "filter": "datum.Category != null && datum.Category != ''" },
     { "filter": "datum.Zone != 'Offshore'" },
     {
-      "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Extreme Weather' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Technological / Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Man-Made' : 'Other'",
+      "calculate": "datum.Category == 'Flood' || datum.Category == 'Storm' || datum.Category == 'Cyclone' || datum.Category == 'Maritime/Coastal' || datum.Category == 'Tornado' ? 'Extreme Weather' : datum.Category == 'Bushfire' || datum.Category == 'Urban Fire' ? 'Fire-related' : datum.Category == 'Earthquake' || datum.Category == 'Landslide' ? 'Geological' : datum.Category == 'Environment' || datum.Category == 'Health' ? 'Environmental / Health' : datum.Category == 'Industrial' || datum.Category == 'Transport' ? 'Industrial' : datum.Category == 'Criminal Act' || datum.Category == 'Other Disasters' ? 'Man-Made' : 'Other'",
       "as": "DisasterGroup"
     },
     {
@@ -38,7 +38,7 @@
       "type": "nominal",
       "title": "Disaster Group",
       "sort": "-y",
-      "axis": {"labelAngle": 6, "labelAlign": "center"}
+      "axis": {"labelAngle": 0, "labelAlign": "center"}
     },
     "y": {
       "field": "TotalDisasters",

@@ -1,0 +1,114 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {"text": "Disasters by State & Territory", "fontSize": 22, "fontWeight": "bold", "anchor": "middle"},
+    "width": 560,
+    "height": 560,
+    "background": null,
+  
+    "data": {
+      "url": "https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Week10_HW/data/disaster-mapper-data-21-03-2023.csv",
+      "format": {"type": "csv"}
+    },
+  
+    "transform": [
+      {"filter": "datum.Zone && datum.Zone !== ''"},
+      {"filter": "datum.Zone !== 'Offshore' && datum.Zone !== 'National' && datum.Zone !== 'Australia'"},
+      {"filter": "!test(datum.Zone, ',')"},
+  
+      {
+        "calculate": "indexof(['New South Wales','Queensland','Western Australia','Victoria','South Australia','Tasmania','Northern Territory','Australian Capital Territory'], datum.Zone)",
+        "as": "idx"
+      },
+      {"filter": "datum.idx >= 0"},
+  
+      {
+        "aggregate": [{"op": "count", "as": "count"}],
+        "groupby": ["Zone", "idx"]
+      },
+  
+      {"calculate": "8", "as": "N"},
+      {"joinaggregate": [{"op": "max", "field": "count", "as": "maxCount"}]},
+      {"calculate": "280", "as": "R"},
+      {"calculate": "280", "as": "cx"},
+      {"calculate": "280", "as": "cy"},
+      {"calculate": "6.283185307179586", "as": "TWO_PI"},
+      {"calculate": "datum.idx / datum.N * datum.TWO_PI", "as": "angle"},
+      {"calculate": "datum.maxCount > 0 ? datum.R * datum.count / datum.maxCount : 0", "as": "r"},
+      {"calculate": "datum.cx + datum.r * cos(datum.angle)", "as": "x"},
+      {"calculate": "datum.cy - datum.r * sin(datum.angle)", "as": "y"},
+      {
+        "calculate": "({'Australian Capital Territory':'ACT','New South Wales':'NSW','Northern Territory':'NT','Queensland':'QLD','South Australia':'SA','Tasmania':'TAS','Victoria':'VIC','Western Australia':'WA'}[datum.Zone]) || datum.Zone",
+        "as": "label"
+      }
+    ],
+  
+    "layer": [
+      /* circular grid rings */
+      {
+        "data": {"values": [0.25, 0.5, 0.75, 1.0]},
+        "transform": [{"calculate": "280 * datum.data", "as": "rad"}],
+        "mark": {"type": "arc", "aria": false},
+        "encoding": {
+          "x": {"value": 280, "axis": null},
+          "y": {"value": 280, "axis": null},
+          "theta": {"value": 0},
+          "theta2": {"value": 6.283185307179586},
+          "radius": {"field": "rad"},
+          "stroke": {"value": "#e0e0e0"},
+          "strokeWidth": {"value": 1},
+          "fillOpacity": {"value": 0}
+        }
+      },
+  
+      /* filled polygon */
+      {
+        "mark": {"type": "area", "interpolate": "linear-closed", "opacity": 0, "color": "#d6675f"},
+        "encoding": {
+          "x": {"field": "x", "type": "quantitative", "scale": {"domain": [0, 560]}, "axis": null},
+          "y": {"field": "y", "type": "quantitative", "scale": {"domain": [0, 560]}, "axis": null},
+          "order": {"field": "idx"}
+        }
+      },
+  
+      /* outline */
+      {
+        "mark": {"type": "line", "interpolate": "linear-closed", "strokeWidth": 2, "color": "#d6675f"},
+        "encoding": {
+          "x": {"field": "x", "axis": null},
+          "y": {"field": "y", "axis": null},
+          "order": {"field": "idx"}
+        }
+      },
+  
+      /* points */
+      {
+        "mark": {"type": "point", "filled": true, "size": 70, "color": "#d6675f"},
+        "encoding": {
+          "x": {"field": "x", "axis": null},
+          "y": {"field": "y", "axis": null},
+          "tooltip": [
+            {"field": "Zone", "type": "nominal", "title": "State/Territory"},
+            {"field": "count", "type": "quantitative", "title": "Disasters"}
+          ],
+          "order": {"field": "idx"}
+        }
+      },
+  
+      /* rim labels */
+      {
+        "mark": {"type": "text", "dy": -10, "fontWeight": "bold", "color": "#444"},
+        "encoding": {
+          "x": {"field": "x", "axis": null},
+          "y": {"field": "y", "axis": null},
+          "text": {"field": "label"},
+          "order": {"field": "idx"}
+        }
+      }
+    ],
+  
+    "config": {
+      "view": {"stroke": null},
+      "axis": {"domain": false, "ticks": false, "labels": false, "grid": false}
+    }
+  }
+  

@@ -1,9 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Disasters within Australia",
   "width": 800,
   "height": 500,
-  "background": "#cfe9ff",
+  "title": "Geographic dispersion of Disasters",
   "params": [
     {
       "name": "YearFilter",
