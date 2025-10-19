@@ -25,7 +25,7 @@
   ],
   "transform": [
     {"filter": "datum.Category != null && datum.Category != ''"},
-    { "filter": "zoneFilter == null || datum.Zone == zoneFilter" },
+    {"filter": "zoneFilter == null || datum.Zone == zoneFilter"},
     {"filter": "datum.Zone != 'Offshore'"},
     {"filter": "year(datum['Start Date']) >= 1900"},
     {"calculate": "split(datum['Start Date'], '/')", "as": "dateParts"},
@@ -45,7 +45,12 @@
   ],
   "mark": {"type": "bar"},
   "encoding": {
-    "x": {"field": "Year", "type": "temporal", "title": "Year"},
+    "x": {
+      "field": "Year",
+      "type": "temporal",
+      "title": "Year",
+      "axis": {"format": "%Y"}
+    },
     "y": {
       "aggregate": "sum",
       "field": "DisasterCount",
@@ -58,24 +63,19 @@
       "title": "Disaster Group",
       "legend": {
         "orient": "none",
-          "legendX": 10,
-          "legendY": 10,
-          "direction": "vertical",
-          "fillColor": "#ffffffcc",
-          "strokeColor": "#cccccc",
-          "cornerRadius": 5,
-          "padding": 5
-        }
-      
+        "legendX": 10,
+        "legendY": 10,
+        "direction": "vertical",
+        "fillColor": "#ffffffcc",
+        "strokeColor": "#cccccc",
+        "cornerRadius": 5,
+        "padding": 5
+      }
     },
     "tooltip": [
-      {"field": "Year", "type": "temporal", "title": "Year"},
+      {"field": "Year", "type": "temporal", "title": "Year", "format": "%Y"},
       {"field": "DisasterGroup", "type": "nominal", "title": "Group"},
-      {
-        "field": "DisasterCount",
-        "type": "quantitative",
-        "title": "Number of Disasters"
-      }
+      {"field": "DisasterCount", "type": "quantitative", "title": "Number of Disasters"}
     ]
   },
   "config": {
