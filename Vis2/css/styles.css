@@ -7,7 +7,7 @@ h1 {
 }
 
 body {
-    background-color: lightgrey;
+    background-color: rgba(0, 0, 0, 0.229);
 }
 
 .page {
@@ -64,4 +64,12 @@ h1 {
 .site-footer p {
     margin: 0 auto;
     max-width: 70ch;
+}
+
+.head-summary {
+    text-align: center;
+    padding: 1rem 0;
+}
+.head-summary p {
+    margin: 0 auto;
 }

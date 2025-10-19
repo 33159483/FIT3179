@@ -58,7 +58,7 @@
       { "field": "Number_of_Disasters", "type": "quantitative", "title": "Number of Disasters" }
     ]
   },
-  "width": 600,
-  "height": 100,
+  "width": 800,
+  "height": 75,
   "config": { "view": { "stroke": "transparent" } }
 }
