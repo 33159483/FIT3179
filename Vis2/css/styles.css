@@ -67,7 +67,55 @@ body {
 .head-summary h1,
 .section-title {
     position: relative;
-    background-image: url(https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Vis2/data/bushfire-85a647.avif);
+    background-image: url(https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Vis2/Images/bushfire-85a647%20copy.avif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 80px 20px;  /* add space for the header */
+    color: white;
+    text-align: center;
+}
+
+.head-summary2 h1,
+.section-title2 {
+    position: relative;
+    background-image: url(https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Vis2/Images/Tsumani%20copy.avif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 80px 20px;  /* add space for the header */
+    color: white;
+    text-align: center;
+}
+
+.head-summary3 h1,
+.section-title3 {
+    position: relative;
+    background-image: url(https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Vis2/Images/storm%20copy.avif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 80px 20px;  /* add space for the header */
+    color: white;
+    text-align: center;
+}
+
+.head-summary4 h1,
+.section-title4 {
+    position: relative;
+    background-image: url(https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Vis2/Images/flood%20copy.avif);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 80px 20px;  /* add space for the header */
+    color: white;
+    text-align: center;
+}
+
+.head-summary5 h1,
+.section-title5 {
+    position: relative;
+    background-image: url(https://raw.githubusercontent.com/33159483/FIT3179/refs/heads/main/Vis2/Images/pexels-andre-furtado-43594-1162251%20copy.avif);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
