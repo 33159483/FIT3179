@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Import Vega & Vega-Lite -->
+    <!-- Vega -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
 
-    <!-- Import pure.css -->
+    <!-- Pure.css -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
@@ -15,7 +15,7 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- CSS file -->
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
 
     <title>Disasters Within Australia</title>
@@ -28,50 +28,84 @@
         <div class="pure-u-1-1">
           <h1>Disasters Within Australia</h1>
           <p>
-            The following visualisation depicts disasters which have occured within Australia from 1900 to 2025. The visualisation demonstrates a clear most frequent event with Extreme Weather events within Australia. These events notably include Cyclone Tracey & the Black Friday Bushfires, which are disasters entrechned within the history of Australia.
+            The following visualisation depicts disasters which have occurred within Australia from 1900 to 2025.
+            The visualisation demonstrates a clear most frequent event with Extreme Weather events within Australia.
+            These events notably include Cyclone Tracy & the Black Friday Bushfires, which are entrenched within the history of Australia.
           </p>
         </div>
       </div>
-    <div
 
-
-      <!-- Symbol Map -->
+      <!-- ======================= SECTION 1: Summary of Disasters (Table) ======================= -->
       <div class="pure-g">
+        <div class="pure-u-1-1">
+          <h2 class="section-title">Summary of Disasters</h2>
+        </div>
+        <div class="pure-u-1-2">
+          <div class="description description-left">
+            <h2>Summary</h2>
+            <p>
+              This section provides a compact summary of recorded disaster events. Use the table to scan key
+              attributes quickly (year, state/territory, type, and impacts).
+            </p>
+          </div>
+        </div>
+        <div class="pure-u-1-2">
+          <div id="vis5" class="vis-container"></div>
+        </div>
+      </div>
+
+      <!-- ======================= SECTION 2: Where Disasters Occur (Symbol Map) ======================= -->
+      <div class="pure-g">
+        <div class="pure-u-1-1">
+          <h2 class="section-title">Where Disasters Occur?</h2>
+        </div>
         <div class="pure-u-1-1 center-row">
           <div id="vis1" class="vis-container"></div>
         </div>
       </div>
 
-      <div class="center-row">
-        <div id="vis3" class="vis-container"></div>
-      </div>
-
-      <!-- stacked bar -->
+      <!-- ======================= SECTION 3: When Disasters Occur (Heat Map + Stacked Bar) ======================= -->
       <div class="pure-g">
-        <div class="pure-u-2-3">
-          <div id="vis2" class="vis-container" style="width: 50%;"></div>
+        <div class="pure-u-1-1">
+          <h2 class="section-title">When Disasters Occur?</h2>
         </div>
 
-        <div class="pure-u-1-3 site-footer">
+        <!-- Heat map full width -->
+        <div class="pure-u-1-1 center-row">
+          <div id="vis3" class="vis-container"></div>
+        </div>
+
+        <!-- Stacked bar + explanatory text (keep text like before) -->
+        <div class="pure-u-2-3">
+          <div id="vis2" class="vis-container"></div>
+        </div>
+        <div class="pure-u-1-3">
           <div class="description description-right">
             <h2>Temporal Display of Disasters</h2>
             <p>
-              The temporal display demonstrates that disaster occurences have increased over time with a peak which occured within 1998 and 2007 (8 disasters). We can also see that most occurences of disasters occur in January, followed by February and December which also align with Australia Summer. Therefore, it may indicate seasonal correlations within Australia's seasons.
+              The temporal display demonstrates that disaster occurrences have increased over time with a peak which
+              occurred within 1998 and 2007 (8 disasters). We can also see that most occurrences of disasters occur
+              in January, followed by February and December which also align with Australia’s summer. Therefore, it
+              may indicate seasonal correlations within Australia's seasons.
             </p>
           </div>
         </div>
       </div>
 
+      <!-- ======================= SECTION 4: What Disasters Are Happening (Category Chart) ======================= -->
       <div class="pure-g">
-        <div class="pure-u-3-4">
-          <div id="vis4" class="vis-container" style="width: 50%;"></div>
+        <div class="pure-u-1-1">
+          <h2 class="section-title">What Disasters Are Happening?</h2>
         </div>
-
-        <div class="pure-u-1-4 site-footer">
+        <div class="pure-u-3-4">
+          <div id="vis4" class="vis-container"></div>
+        </div>
+        <div class="pure-u-1-4">
           <div class="description description-right">
-            <h2>Interactivty within the line chart</h2>
+            <h2>Interactivity within the line chart</h2>
             <p>
-              The most frequent disaster which occurs within Australia fall under Extreme Weather events. These events range from a few disaster types which include, Flood, Storm, Cyclone, Maritime/Coastal, Tornado.
+              The most frequent disaster which occurs within Australia falls under Extreme Weather events. These
+              events range from a few disaster types which include Flood, Storm, Cyclone, Maritime/Coastal, and Tornado.
             </p>
           </div>
         </div>
@@ -79,43 +113,37 @@
 
       <!-- Footer -->
       <div class="pure-g site-footer">
-        <div class="pure-u-1-1 small-font">
+        <div class="pure-u-1-1">
           <p>
-            This visualisation is made by Daniel Antonio Chimirri 33159483 & completed on the 17/10/2025. The datasources can be accessed through
-            <a href="https://data.aurin.org.au/dataset/au-govt-agd-disaster-events-impact-location-na">Aurin</a>
+            This visualisation is made by Daniel Antonio Chimirri 33159483 & completed on the 17/10/2025. The data sources can be accessed through
+            <a href="https://data.aurin.org.au/dataset/au-govt-agd-disaster-events-impact-location-na">AURIN</a>
             & the
-            <a href="https://knowledge.aidr.org.au/collections/australian-disasters/">Australian Institude for Disaster Resilience</a>.
-            Generative AI was utilised to assit with interactivitity.
+            <a href="https://knowledge.aidr.org.au/collections/australian-disasters/">Australian Institute for Disaster Resilience</a>.
+            Generative AI was utilised to assist with interactivity.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- 🔹 Updated Vega Embeds script -->
+    <!-- Embeds -->
     <script type="text/javascript">
       const specs = [
-        { id: "#vis1", file: "./js/symbol_map_disaster.json" },
-        { id: "#vis2", file: "./js/stacked_bar_disasters.json" },
-        { id: "#vis3", file: "./js/heat_map_disasters.json" },
-        { id: "#vis4", file: "./js/bar_chart_disasters.json" },
-        { id: "#vis5", file: "./js/table.json" }
+        { id: "#vis1", file: "./js/symbol_map_disaster.json" },   // where
+        { id: "#vis2", file: "./js/stacked_bar_disasters.json" },  // when (bars)
+        { id: "#vis3", file: "./js/heat_map_disasters.json" },     // when (heat)
+        { id: "#vis4", file: "./js/bar_chart_disasters.json" },    // what
+        { id: "#vis5", file: "./js/table.json" }                   // summary
       ];
 
       const charts = [];
 
-      // Embed all visualisations
       Promise.all(
         specs.map(spec =>
           vegaEmbed(spec.id, spec.file, { actions: false }).then(res => res.view)
         )
       ).then(views => {
         views.forEach(v => charts.push(v));
-
-        // Dropdown listener to update all charts
-        document.getElementById("zoneSelect").addEventListener("change", e => {
-          const selectedZone = e.target.value;
-          charts.forEach(v => v.signal("zone_select", selectedZone).run());
-        });
+        // No global filter; listener removed.
       });
     </script>
   </body>

@@ -50,7 +50,7 @@
     "color": {
       "field": "Number_of_Disasters",
       "type": "quantitative",
-      "title": "Number of Disasters",
+      "title": "Frequency",
       "scale": { "scheme": "reds" }
     },
     "tooltip": [
@@ -58,7 +58,7 @@
       { "field": "Number_of_Disasters", "type": "quantitative", "title": "Number of Disasters" }
     ]
   },
-  "width": 800,
+  "width": 850,
   "height": 75,
   "config": { "view": { "stroke": "transparent" } }
 }

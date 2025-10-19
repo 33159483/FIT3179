@@ -1,76 +1,38 @@
-
-body * {
-    font-family: 'Open Sans', sans-serif;
-}
-
-h1 {
-    font-weight: 900;
-}
-
-body {
-    background-color: rgba(0, 0, 0, 0.229);
-}
+/* Base */
+body * { font-family: 'Open Sans', sans-serif; }
+h1 { font-weight: 900; }
+body { background-color: rgba(0, 0, 0, 0.229); }
 
 .page {
-    width: 1000px;
-    background-color: white;
-    margin: auto;
-    padding: 50px;
-    padding-top: 35px;
+  max-width: 1100px;
+  width: 95%;
+  background: #fff;
+  margin: 2rem auto;
+  padding: 36px 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
 }
 
-.vis-container {
-    width: 100%;
-}
+/* Charts & layout helpers */
+.vis-container { width: 100%; }
+.pure-g { margin-bottom: 24px; }
+/* Gutters that won't break Pure fractions */
+.pure-g > [class*="pure-u"] { box-sizing: border-box; padding: 8px 12px; }
 
-.description h2,
-h1 {
-    margin-top: 0px;
-}
+/* Text blocks */
+.description-right { padding-left: 6px; }
+.description-left  { padding-right: 6px; }
+/* Fix earlier selector bug so only headings inside .description are affected */
+.description h2, .description h1 { margin-top: 0; }
 
-.description-right {
-    padding-left: 20px;
-}
+/* Centered single-row chart wrapper (don't use on multi-column rows) */
+.center-row { display: flex; justify-content: center; }
+.center-row .vis-container { width: fit-content; max-width: 100%; margin: 1.25rem 0; }
 
-.description-left {
-    padding-right: 20px;
-}
+/* Titles centered */
+.head-summary h1,
+.section-title { text-align: center; }
 
-.pure-g {
-    margin-bottom: 20px;
-}
-
-.small-font {
-    font-size: 10px;
-}
-
-.center-row {
-    display: flex;
-    justify-content: center;
-}
-
-.center-row .vis-container {
-    /* shrink-wrap to the chart’s intrinsic width; stays responsive */
-    width: fit-content;
-    max-width: 100%;
-    margin: 2rem 0;
-    /* nice spacing above/below */
-}
-
-.site-footer {
-    text-align: center;
-    padding: 1rem 0;
-}
-
-.site-footer p {
-    margin: 0 auto;
-    max-width: 70ch;
-}
-
-.head-summary {
-    text-align: center;
-    padding: 1rem 0;
-}
-.head-summary p {
-    margin: 0 auto;
-}
+/* Footer smaller font */
+.site-footer { text-align: center; padding: 1rem 0; font-size: 12px; line-height: 1.45; }
+.site-footer p { margin: 0 auto; max-width: 70ch; }
